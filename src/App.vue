@@ -2,14 +2,13 @@
   <section class="container">
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
+    <button @click="setNewAge">Change Age</button>
   </section>
 </template>
 
 <script setup>
 import { reactive }  from 'vue'
 
-// const userName = ref('Dima')
-// const uAge = ref(25)
 const user = reactive({
   name: 'Dima',
   age: 25
@@ -20,11 +19,9 @@ setTimeout(() => {
   user.age += 10
 }, 2000)
 
-  // data() {
-  //   return {
-  //     userName: 'Dima',
-  //   };
-  // },
+function setNewAge() {
+  user.age += 20
+}
 </script>
 
 <style>
