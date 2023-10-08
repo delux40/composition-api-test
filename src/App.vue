@@ -1,27 +1,38 @@
 <template>
   <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
-    <button @click="setNewAge">Change Age</button>
+    <user-info :first-name="firstName" :last-name="lastName" @setNewAge="setNewAge"></user-info>
   </section>
 </template>
 
 <script setup>
-import { reactive }  from 'vue'
+import { ref, watch, provide, onBeforeMount, onMounted }  from 'vue'
+import UserInfo from './components/UserInfo.vue'
 
-const user = reactive({
-  name: 'Dima',
-  age: 25
+onBeforeMount(() => {
+  console.log('onBeforeMount')
 })
 
-setTimeout(() => {
-  user.name = 'Dimasik'
-  user.age += 10
-}, 2000)
+onMounted(() => {
+  console.log('onMounted')
+})
 
-function setNewAge() {
-  user.age += 20
+const firstName = ref('Dmitry')
+const lastName = ref('Burkin')
+const uAge = ref(25)
+
+provide('uAge', uAge)
+
+watch(uAge, (value) => {
+  if(value > 100) {
+    alert('It`s too much!')
+    uAge.value = 25
+  }
+})
+
+function setNewAge(age) {
+  uAge.value = age + 10
 }
+
 </script>
 
 <style>
